@@ -1,0 +1,103 @@
+:root {
+    --lms-blue: #2563eb;
+    --lms-blue-dark: #1e40af;
+    --lms-gray: #f4f6f9;
+    --lms-gray-dark: #64748b;
+    --sidebar-width: 240px;
+}
+
+body {
+    background-color: var(--lms-gray);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ===== Navbar ===== */
+.navbar-lms {
+    background-color: var(--lms-blue-dark);
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+/* ===== Sidebar ===== */
+.sidebar-lms {
+    width: var(--sidebar-width);
+    min-height: calc(100vh - 56px);
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    transition: margin-left 0.25s ease;
+}
+
+.nav-link-lms {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.925rem;
+    margin-bottom: 2px;
+}
+
+.nav-link-lms:hover {
+    background-color: var(--lms-gray);
+    color: var(--lms-blue-dark);
+}
+
+.nav-link-lms.active {
+    background-color: var(--lms-blue);
+    color: #ffffff;
+}
+
+/* ===== Content & Footer ===== */
+.content-lms {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-lms {
+    margin-top: auto;
+    padding: 1rem;
+    border-top: 1px solid #e2e8f0;
+    background-color: #ffffff;
+}
+
+/* ===== Login Page ===== */
+.login-page {
+    background-color: var(--lms-gray);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+}
+
+.login-card {
+    border: none;
+    border-radius: 12px;
+}
+
+/* ===== Responsif: sidebar jadi off-canvas di layar kecil ===== */
+@media (max-width: 767.98px) {
+    .sidebar-lms {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        bottom: 0;
+        margin-left: calc(-1 * var(--sidebar-width));
+        z-index: 1020;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .sidebar-lms.show {
+        margin-left: 0;
+    }
+}
