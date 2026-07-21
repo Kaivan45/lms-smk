@@ -4,9 +4,9 @@
 
 @section('sidebar-menu')
     <li class="nav-item"><a href="{{ route('admin.guru.index') }}" class="nav-link-lms"><i class="bi bi-person-badge"></i> Data Guru</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-people"></i> Data Siswa</a></li>
+    <li class="nav-item"><a href="{{ route('admin.siswa.index') }}" class="nav-link-lms"><i class="bi bi-people"></i> Data Siswa</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-person-workspace"></i> Kepala Sekolah</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-door-open"></i> Data Kelas</a></li>
+    <li class="nav-item"><a href="{{ route('admin.kelas.index') }}" class="nav-link-lms"><i class="bi bi-door-open"></i> Data Kelas</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-book"></i> Mata Pelajaran</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-calendar3"></i> Tahun Ajaran</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-megaphone"></i> Pengumuman</a></li>

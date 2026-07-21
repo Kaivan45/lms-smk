@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Data Guru')
+@section('title', 'Data Siswa')
 
 @section('sidebar-menu')
-    <li class="nav-item"><a href="{{ route('admin.guru.index') }}" class="nav-link-lms active"><i class="bi bi-person-badge"></i> Data Guru</a></li>
-    <li class="nav-item"><a href="{{ route('admin.siswa.index') }}" class="nav-link-lms"><i class="bi bi-people"></i> Data Siswa</a></li>
+    <li class="nav-item"><a href="{{ route('admin.guru.index') }}" class="nav-link-lms"><i class="bi bi-person-badge"></i> Data Guru</a></li>
+    <li class="nav-item"><a href="{{ route('admin.siswa.index') }}" class="nav-link-lms active"><i class="bi bi-people"></i> Data Siswa</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-person-workspace"></i> Kepala Sekolah</a></li>
     <li class="nav-item"><a href="{{ route('admin.kelas.index') }}" class="nav-link-lms"><i class="bi bi-door-open"></i> Data Kelas</a></li>
     <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-book"></i> Mata Pelajaran</a></li>
@@ -15,30 +15,43 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
         <div>
-            <h4 class="fw-medium mb-0">Data Guru</h4>
-            <p class="text-muted small mb-0">Kelola akun dan data guru</p>
+            <h4 class="fw-medium mb-0">Data Siswa</h4>
+            <p class="text-muted small mb-0">Kelola akun dan data siswa</p>
         </div>
-        <a href="{{ route('admin.guru.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i> Tambah Guru
+        <a href="{{ route('admin.siswa.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Siswa
         </a>
     </div>
 
     <div class="card border-0 shadow-sm">
         <div class="card-body">
-            <form action="{{ route('admin.guru.index') }}" method="GET" class="mb-3">
-                <div class="input-group" style="max-width: 350px;">
-                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
-                    <input
-                        type="text"
-                        name="search"
-                        value="{{ $search }}"
-                        class="form-control"
-                        placeholder="Cari nama, email, atau NIP..."
-                    >
-                    @if ($search)
-                        <a href="{{ route('admin.guru.index') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-x-lg"></i>
-                        </a>
+            <form action="{{ route('admin.siswa.index') }}" method="GET" class="row g-2 mb-3">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ $search }}"
+                            class="form-control"
+                            placeholder="Cari nama, email, atau NIS..."
+                        >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select name="class_id" class="form-select" onchange="this.form.submit()">
+                        <option value="">Semua Kelas</option>
+                        @foreach ($classes as $class)
+                            <option value="{{ $class->id }}" {{ (string) $classId === (string) $class->id ? 'selected' : '' }}>
+                                {{ $class->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <button type="submit" class="btn btn-outline-primary">Terapkan</button>
+                    @if ($search || $classId)
+                        <a href="{{ route('admin.siswa.index') }}" class="btn btn-outline-secondary">Reset</a>
                     @endif
                 </div>
             </form>
@@ -50,25 +63,31 @@
                             <th style="width: 40px;">#</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>NIP</th>
-                            <th>No. HP</th>
+                            <th>NIS</th>
+                            <th>Kelas</th>
                             <th style="width: 120px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($guru as $index => $item)
+                        @forelse ($siswa as $index => $item)
                             <tr>
-                                <td>{{ $guru->firstItem() + $index }}</td>
+                                <td>{{ $siswa->firstItem() + $index }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->nis_nip ?? '-' }}</td>
-                                <td>{{ $item->phone ?? '-' }}</td>
+                                <td>
+                                    @if ($item->schoolClass)
+                                        <span class="badge bg-primary-subtle text-primary-emphasis">{{ $item->schoolClass->name }}</span>
+                                    @else
+                                        <span class="text-muted small">Belum ada kelas</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex gap-1">
-                                        <a href="{{ route('admin.guru.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
+                                        <a href="{{ route('admin.siswa.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.guru.destroy', $item) }}" method="POST" class="form-delete">
+                                        <form action="{{ route('admin.siswa.destroy', $item) }}" method="POST" class="form-delete">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger" aria-label="Hapus">
@@ -81,11 +100,7 @@
                         @empty
                             <tr>
                                 <td colspan="6" class="text-center text-muted py-4">
-                                    @if ($search)
-                                        Tidak ada guru yang cocok dengan pencarian "{{ $search }}".
-                                    @else
-                                        Belum ada data guru.
-                                    @endif
+                                    Belum ada data siswa yang cocok.
                                 </td>
                             </tr>
                         @endforelse
@@ -94,7 +109,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                {{ $guru->links() }}
+                {{ $siswa->links() }}
             </div>
         </div>
     </div>
@@ -109,7 +124,7 @@
 
                 Swal.fire({
                     title: 'Hapus Data?',
-                    text: "Data guru yang dihapus tidak dapat dikembalikan.",
+                    text: "Data siswa yang dihapus tidak dapat dikembalikan.",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#dc3545',

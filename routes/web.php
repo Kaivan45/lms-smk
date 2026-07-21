@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\Admin\KelasController;
+use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 
         Route::resource('guru', GuruController::class)->except(['show']);
+        Route::resource('siswa', SiswaController::class)->except(['show']);
+        Route::resource('kelas', KelasController::class)
+            ->except(['show'])
+            ->parameters(['kelas' => 'kelas']);
     });
 
     Route::middleware('role:guru')->group(function () {
@@ -47,8 +53,4 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:kepala_sekolah')->group(function () {
         Route::get('/kepala-sekolah/dashboard', [DashboardController::class, 'kepalaSekolah'])->name('kepala-sekolah.dashboard');
     });
-
-
-
-    
 });
