@@ -86,8 +86,8 @@ Dashboard monitoring yang berisi:
 
 | Teknologi  | Versi                   |
 | ---------- | ----------------------- |
-| Laravel    | 12                      |
-| PHP        | 8.4                     |
+| Laravel    | 10                      |
+| PHP        | 8.1 atau Lebih          |
 | MySQL      | 8+                      |
 | Bootstrap  | 5                       |
 | HTML       | 5                       |
