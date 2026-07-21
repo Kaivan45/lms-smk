@@ -318,9 +318,3 @@ http://127.0.0.1:8000
 Proyek ini dikembangkan sebagai media pembelajaran dan tugas akademik. Silakan gunakan, modifikasi, dan kembangkan sesuai kebutuhan dengan tetap mencantumkan atribusi kepada pengembang asli apabila dipublikasikan.
 
 ---
-
-# 👨‍💻 Pengembang
-
-**LMS SMK**
-
-Dikembangkan menggunakan Laravel 12, Bootstrap 5, HTML, CSS, JavaScript, dan MySQL sebagai contoh implementasi sederhana sistem Learning Management System untuk Sekolah Menengah Kejuruan (SMK).
