@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\SiswaController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('kelas', KelasController::class)
             ->except(['show'])
             ->parameters(['kelas' => 'kelas']);
+        Route::resource('mata-pelajaran', SubjectController::class)
+            ->except(['show'])
+            ->parameters(['mata-pelajaran' => 'subject'])
+            ->names('mata-pelajaran');
     });
 
     Route::middleware('role:guru')->group(function () {
