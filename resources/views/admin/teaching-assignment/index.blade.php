@@ -3,7 +3,7 @@
 @section('title', 'Penugasan Mengajar')
 
 @section('sidebar-menu')
-    @include('layouts.partials.sidebar-menu')
+    @include('sidebar.sidebar')
 @endsection
 
 @section('content')

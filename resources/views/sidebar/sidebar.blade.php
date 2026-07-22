@@ -24,7 +24,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('admin.tahun-ajaran.index') }}" class="nav-link-lms {{ request()->routeIs('admin.tahunajar.*') ? 'active' : '' }}">
+    <a href="{{ route('admin.tahun-ajaran.index') }}" class="nav-link-lms {{ request()->routeIs('admin.tahun-ajaran.*') ? 'active' : '' }}">
         <i class="bi bi-calendar3"></i> Tahun Ajaran
     </a>
 </li>
