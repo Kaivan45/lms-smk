@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
+use App\Models\Assignment;
+use App\Models\ClassRoom;
+use App\Models\Material;
+use App\Models\Submission;
+use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -28,7 +35,7 @@ class DashboardController extends Controller
     public function admin(): View
     {
         return view('dashboard.admin');
-    }
+    } 
 
     public function guru(): View
     {
@@ -37,11 +44,24 @@ class DashboardController extends Controller
 
     public function siswa(): View
     {
-        return view('dashboard.siswa');
+        $latestAnnouncements = Announcement::latest()->take(3)->get();
+
+        return view('dashboard.siswa', compact('latestAnnouncements'));
     }
 
     public function kepalaSekolah(): View
     {
-        return view('dashboard.kepala-sekolah');
+        $stats = [
+            'guru' => User::where('role', 'guru')->count(),
+            'siswa' => User::where('role', 'siswa')->count(),
+            'kelas' => ClassRoom::count(),
+            'mapel' => Subject::count(),
+            'materi' => Material::count(),
+            'tugas' => Assignment::count(),
+            'pengumpulan' => Submission::count(),
+            'nilai_masuk' => Submission::whereNotNull('score')->count(),
+        ];
+
+        return view('kepala-sekolah.dashboard', compact('stats'));
     }
 }

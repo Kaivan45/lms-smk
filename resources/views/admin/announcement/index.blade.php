@@ -1,25 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Data Kelas')
+@section('title', 'Pengumuman')
 
 @section('sidebar-menu')
-    @include('sidebar.sidebar')
+    @include('sidebar.sidebar')    
 @endsection
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
         <div>
-            <h4 class="fw-medium mb-0">Data Kelas</h4>
-            <p class="text-muted small mb-0">Kelola kelas, wali kelas, dan tahun ajaran</p>
+            <h4 class="fw-medium mb-0">Pengumuman</h4>
+            <p class="text-muted small mb-0">Kelola pengumuman untuk seluruh pengguna sistem</p>
         </div>
-        <a href="{{ route('admin.kelas.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i> Tambah Kelas
+        <a href="{{ route('admin.pengumuman.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Buat Pengumuman
         </a>
     </div>
 
     <div class="card border-0 shadow-sm">
         <div class="card-body">
-            <form action="{{ route('admin.kelas.index') }}" method="GET" class="mb-3">
+            <form action="{{ route('admin.pengumuman.index') }}" method="GET" class="mb-3">
                 <div class="input-group" style="max-width: 350px;">
                     <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
                     <input
@@ -27,10 +27,10 @@
                         name="search"
                         value="{{ $search }}"
                         class="form-control"
-                        placeholder="Cari nama kelas..."
+                        placeholder="Cari judul pengumuman..."
                     >
                     @if ($search)
-                        <a href="{{ route('admin.kelas.index') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('admin.pengumuman.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-x-lg"></i>
                         </a>
                     @endif
@@ -42,32 +42,25 @@
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
-                            <th>Nama Kelas</th>
-                            <th>Tahun Ajaran</th>
-                            <th>Wali Kelas</th>
-                            <th>Jumlah Siswa</th>
+                            <th>Judul</th>
+                            <th>Dibuat oleh</th>
+                            <th>Tanggal</th>
                             <th style="width: 120px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($kelas as $index => $item)
+                        @forelse ($announcements as $index => $item)
                             <tr>
-                                <td>{{ $kelas->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>
-                                    {{ $item->academicYear->name ?? '-' }}
-                                    @if ($item->academicYear?->is_active)
-                                        <span class="badge bg-success-subtle text-success-emphasis">Aktif</span>
-                                    @endif
-                                </td>
-                                <td>{{ $item->homeroomTeacher->name ?? '-' }}</td>
-                                <td>{{ $item->students_count }} siswa</td>
+                                <td>{{ $announcements->firstItem() + $index }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->creator->name ?? '-' }}</td>
+                                <td>{{ $item->created_at->format('d M Y') }}</td>
                                 <td>
                                     <div class="d-flex gap-1">
-                                        <a href="{{ route('admin.kelas.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
+                                        <a href="{{ route('admin.pengumuman.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.kelas.destroy', $item) }}" method="POST" class="form-delete">
+                                        <form action="{{ route('admin.pengumuman.destroy', $item) }}" method="POST" class="form-delete">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger" aria-label="Hapus">
@@ -79,11 +72,11 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">
+                                <td colspan="5" class="text-center text-muted py-4">
                                     @if ($search)
-                                        Tidak ada kelas yang cocok dengan pencarian "{{ $search }}".
+                                        Tidak ada pengumuman yang cocok dengan pencarian "{{ $search }}".
                                     @else
-                                        Belum ada data kelas.
+                                        Belum ada pengumuman.
                                     @endif
                                 </td>
                             </tr>
@@ -93,7 +86,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                {{ $kelas->links() }}
+                {{ $announcements->links() }}
             </div>
         </div>
     </div>
