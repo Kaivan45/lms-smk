@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\KepalaSekolahController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\TeachingAssignmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KepalaSekolah\MonitoringController;
@@ -21,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => redirect()->route('login'));
-    Route::get('/', fn () => redirect()->route('dashboard'));
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
 });
@@ -75,6 +75,10 @@ Route::middleware('auth')->group(function () {
             ->except(['show'])
             ->parameters(['pengumuman' => 'announcement'])
             ->names('pengumuman');
+        Route::resource('penugasan-mengajar', TeachingAssignmentController::class)
+            ->except(['show'])
+            ->parameters(['penugasan-mengajar' => 'teachingAssignment'])
+            ->names('penugasan-mengajar');
     });
 
     Route::middleware('role:guru')->group(function () {

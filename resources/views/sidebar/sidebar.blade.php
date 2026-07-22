@@ -33,3 +33,8 @@
         <i class="bi bi-megaphone"></i> Pengumuman
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('admin.penugasan-mengajar.index') }}" class="nav-link-lms {{ request()->routeIs('admin.penugasan-mengajar.*') ? 'active' : '' }}">
+        <i class="bi-check2-square"></i> Penugasan
+    </a>
+</li>
