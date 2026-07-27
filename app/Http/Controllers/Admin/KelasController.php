@@ -27,7 +27,7 @@ class KelasController extends Controller
             ->withCount('students')
             ->when($search, fn ($query) => $query->where('name', 'like', "%{$search}%"))
             ->orderBy('name')
-            ->paginate(10)
+            ->simplepaginate(10)
             ->withQueryString();
 
         return view('admin.kelas.index', compact('kelas', 'search'));
@@ -37,7 +37,7 @@ class KelasController extends Controller
     {
         return view('admin.kelas.create', $this->formData());
     }
-
+ 
     public function store(StoreKelasRequest $request): RedirectResponse
     {
         ClassRoom::create($request->validated());

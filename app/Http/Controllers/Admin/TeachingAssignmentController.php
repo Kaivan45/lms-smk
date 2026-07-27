@@ -30,7 +30,7 @@ class TeachingAssignmentController extends Controller
             ->when($classId, fn ($query) => $query->where('class_id', $classId))
             ->when($academicYearId, fn ($query) => $query->where('academic_year_id', $academicYearId))
             ->latest()
-            ->paginate(10)
+            ->simplepaginate(10)
             ->withQueryString();
 
         return view('admin.teaching-assignment.index', array_merge(
