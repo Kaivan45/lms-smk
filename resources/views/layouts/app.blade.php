@@ -49,7 +49,7 @@
                 <div class="text-white-50 small text-uppercase mb-2 px-2">Menu</div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link-lms {{ request()->routeIs('*.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="nav-link-lms {{ request()->routeIs(['dashboard', '*.dashboard']) ? 'active' : '' }}">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>

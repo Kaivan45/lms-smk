@@ -3,7 +3,7 @@
 @section('title', 'Data Guru')
 
 @section('sidebar-menu')
-    @include('sidebar.sidebar')
+     @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')

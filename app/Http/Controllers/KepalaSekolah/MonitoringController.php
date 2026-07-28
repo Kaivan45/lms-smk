@@ -13,14 +13,14 @@ class MonitoringController extends Controller
 {
     public function guru(): View
     {
-        $guru = User::where('role', 'guru')->orderBy('name')->paginate(10);
+        $guru = User::where('role', 'guru')->orderBy('name')->simplepaginate(10);
 
         return view('kepala-sekolah.guru', compact('guru'));
     }
 
     public function siswa(): View
     {
-        $siswa = User::where('role', 'siswa')->with('schoolClass')->orderBy('name')->paginate(10);
+        $siswa = User::where('role', 'siswa')->with('schoolClass')->orderBy('name')->simplepaginate(10);
 
         return view('kepala-sekolah.siswa', compact('siswa'));
     }
@@ -30,21 +30,21 @@ class MonitoringController extends Controller
         $kelas = ClassRoom::with(['academicYear', 'homeroomTeacher'])
             ->withCount('students')
             ->orderBy('name')
-            ->paginate(10);
+            ->simplepaginate(10);
 
         return view('kepala-sekolah.kelas', compact('kelas'));
     }
 
     public function mataPelajaran(): View
     {
-        $subjects = Subject::orderBy('name')->paginate(10);
+        $subjects = Subject::orderBy('name')->simplepaginate(10);
 
         return view('kepala-sekolah.mata-pelajaran', compact('subjects'));
     }
 
     public function pengumuman(): View
     {
-        $announcements = Announcement::with('creator')->latest()->paginate(10);
+        $announcements = Announcement::with('creator')->latest()->simplepaginate(10);
 
         return view('kepala-sekolah.pengumuman', compact('announcements'));
     }

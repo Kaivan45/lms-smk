@@ -19,10 +19,9 @@ class Submission extends Model
         'submitted_at',
     ];
 
-    protected function casts(): array
-    {
-        return ['submitted_at' => 'datetime'];
-    }
+    protected $casts = [
+        'submitted_at' => 'datetime',
+    ];
 
     public function assignment(): BelongsTo
     {

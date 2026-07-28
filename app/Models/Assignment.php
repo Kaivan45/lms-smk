@@ -19,10 +19,9 @@ class Assignment extends Model
         'deadline',
     ];
 
-    protected function casts(): array
-    {
-        return ['deadline' => 'datetime'];
-    }
+    protected $casts = [
+        'deadline' => 'datetime',
+    ];
 
     public function teachingAssignment(): BelongsTo
     {

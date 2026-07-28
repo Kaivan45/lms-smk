@@ -3,7 +3,7 @@
 @section('title', 'Kepala Sekolah')
 
 @section('sidebar-menu')
-    @include('sidebar.sidebar')
+     @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')

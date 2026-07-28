@@ -1,23 +1,30 @@
 @php $role = auth()->user()->role; @endphp
 
 @if ($role === 'admin')
-    <li class="nav-item"><a href="{{ route('admin.guru.index') }}" class="nav-link-lms"><i class="bi bi-person-badge"></i> Data Guru</a></li>
-    <li class="nav-item"><a href="{{ route('admin.siswa.index') }}" class="nav-link-lms"><i class="bi bi-people"></i> Data Siswa</a></li>
-    <li class="nav-item"><a href="{{ route('admin.kepala-sekolah.index') }}" class="nav-link-lms"><i class="bi bi-person-workspace"></i> Kepala Sekolah</a></li>
-    <li class="nav-item"><a href="{{ route('admin.kelas.index') }}" class="nav-link-lms"><i class="bi bi-door-open"></i> Data Kelas</a></li>
-    <li class="nav-item"><a href="{{ route('admin.mata-pelajaran.index') }}" class="nav-link-lms"><i class="bi bi-book"></i> Mata Pelajaran</a></li>
-    <li class="nav-item"><a href="{{ route('admin.tahun-ajaran.index') }}" class="nav-link-lms"><i class="bi bi-calendar3"></i> Tahun Ajaran</a></li>
-    <li class="nav-item"><a href="{{ route('admin.pengumuman.index') }}" class="nav-link-lms"><i class="bi bi-megaphone"></i> Pengumuman</a></li>
+    <li class="nav-item"><a href="{{ route('admin.guru.index') }}" class="nav-link-lms {{ request()->routeIs('admin.guru.*') ? 'active' : '' }}"> <i class="bi bi-person-badge"></i> Data Guru</a></li>
+
+    <li class="nav-item"> <a href="{{ route('admin.siswa.index') }}" class="nav-link-lms {{ request()->routeIs('admin.siswa.*') ? 'active' : '' }}"> <i class="bi bi-people"></i> Data Siswa </a> </li>
+
+    <li class="nav-item"> <a href="{{ route('admin.kepala-sekolah.index') }}" class="nav-link-lms {{ request()->routeIs('admin.kepala-sekolah.*') ? 'active' : '' }}"> <i class="bi bi-person-workspace"></i> Kepala Sekolah</a></li>
+
+    <li class="nav-item"> <a href="{{ route('admin.kelas.index') }}" class="nav-link-lms {{ request()->routeIs('admin.kelas.*') ? 'active' : '' }}"> <i class="bi bi-door-open"></i> Data Kelas </a></li>
+
+    <li class="nav-item"> <a href="{{ route('admin.mata-pelajaran.index') }}"class="nav-link-lms {{ request()->routeIs('admin.mata-pelajaran.*') ? 'active' : '' }}"><i class="bi bi-book"></i> Mata Pelajaran</a></li>
+
+    <li class="nav-item"><a href="{{ route('admin.penugasan-mengajar.index') }}"class="nav-link-lms {{ request()->routeIs('admin.penugasan-mengajar.*') ? 'active' : '' }}"><i class="bi bi-diagram-3"></i> Penugasan Mengajar </a></li>
+
+    <li class="nav-item"><a href="{{ route('admin.tahun-ajaran.index') }}"class="nav-link-lms {{ request()->routeIs('admin.tahun-ajaran.*') ? 'active' : '' }}"><i class="bi bi-calendar3"></i> Tahun Ajaran </a></li>
+    
+    <li class="nav-item"><a href="{{ route('admin.pengumuman.index') }}" class="nav-link-lms {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}"> <i class="bi bi-megaphone"></i> Pengumuman </a></li>
+
 @elseif ($role === 'guru')
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-door-open"></i> Kelas Saya</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-file-earmark-text"></i> Materi</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-clipboard-check"></i> Tugas</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-people"></i> Daftar Siswa</a></li>
+    <li class="nav-item"><a href="{{ route('guru.kelas-saya.index') }}" class="nav-link-lms {{ request()->routeIs('guru.kelas-saya.*') || request()->routeIs('guru.materi.*') ? 'active' : '' }}"><i class="bi bi-door-open"></i> Kelas Saya</a></li>
+    <li class="nav-item"><a href="{{ route('guru.siswa.index') }}" class="nav-link-lms {{ request()->routeIs('guru.siswa.*') ? 'active' : '' }}"><i class="bi bi-people"></i> Daftar Siswa</a></li>
 @elseif ($role === 'siswa')
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-file-earmark-text"></i> Materi</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-clipboard-check"></i> Tugas</a></li>
-    <li class="nav-item"><a href="#" class="nav-link-lms"><i class="bi bi-star"></i> Nilai</a></li>
-    <li class="nav-item"><a href="{{ route('siswa.pengumuman.index') }}" class="nav-link-lms"><i class="bi bi-megaphone"></i> Pengumuman</a></li>
+    <li class="nav-item"><a href="{{ route('siswa.materi.index') }}" class="nav-link-lms {{ request()->routeIs('siswa.materi.*') ? 'active' : '' }}"><i class="bi bi-file-earmark-text"></i> Materi</a></li>
+    <li class="nav-item"><a href="{{ route('siswa.tugas.index') }}" class="nav-link-lms {{ request()->routeIs('siswa.tugas.*') ? 'active' : '' }}"><i class="bi bi-clipboard-check"></i> Tugas</a></li>
+    <li class="nav-item"><a href="{{ route('siswa.nilai.index') }}" class="nav-link-lms {{ request()->routeIs('siswa.nilai.*') ? 'active' : '' }}"><i class="bi bi-star"></i> Nilai</a></li>
+    <li class="nav-item"><a href="{{ route('siswa.pengumuman.index') }}" class="nav-link-lms {{ request()->routeIs('siswa.pengumuman.*') ? 'active' : '' }}"><i class="bi bi-megaphone"></i> Pengumuman</a></li>
 @elseif ($role === 'kepala_sekolah')
     <li class="nav-item"><a href="{{ route('kepala-sekolah.guru') }}" class="nav-link-lms {{ request()->routeIs('kepala-sekolah.guru') ? 'active' : '' }}"><i class="bi bi-person-badge"></i> Daftar Guru</a></li>
     <li class="nav-item"><a href="{{ route('kepala-sekolah.siswa') }}" class="nav-link-lms {{ request()->routeIs('kepala-sekolah.siswa') ? 'active' : '' }}"><i class="bi bi-people"></i> Daftar Siswa</a></li>
