@@ -16,7 +16,13 @@ class StoreMaterialRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'file' => ['required', 'file', 'mimes:pdf,doc,docx,ppt,pptx', 'max:10240'],
+            'file' => [
+                'required',
+                'file',
+                'mimes:pdf,doc,docx,ppt,pptx',
+                'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,application/x-zip-compressed',
+                'max:'.config('lms.max_upload_size_kb'),
+            ],
         ];
     }
 
@@ -26,7 +32,7 @@ class StoreMaterialRequest extends FormRequest
             'title.required' => 'Judul materi wajib diisi.',
             'file.required' => 'File materi wajib diupload.',
             'file.mimes' => 'File harus berformat PDF, DOC, DOCX, PPT, atau PPTX.',
-            'file.max' => 'Ukuran file maksimal 10 MB.',
+            'file.max' => 'Ukuran file maksimal '.round(config('lms.max_upload_size_kb') / 1024).' MB.',
         ];
     }
 }

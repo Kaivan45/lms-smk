@@ -16,7 +16,13 @@ class UpdateMaterialRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'file' => ['nullable', 'file', 'mimes:pdf,doc,docx,ppt,pptx', 'max:10240'],
+            'file' => [
+                'nullable',
+                'file',
+                'mimes:pdf,doc,docx,ppt,pptx',
+                'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,application/x-zip-compressed',
+                'max:'.config('lms.max_upload_size_kb'),
+            ],
         ];
     }
 
@@ -25,7 +31,7 @@ class UpdateMaterialRequest extends FormRequest
         return [
             'title.required' => 'Judul materi wajib diisi.',
             'file.mimes' => 'File harus berformat PDF, DOC, DOCX, PPT, atau PPTX.',
-            'file.max' => 'Ukuran file maksimal 10 MB.',
+            'file.max' => 'Ukuran file maksimal '.round(config('lms.max_upload_size_kb') / 1024).' MB.',
         ];
     }
 }

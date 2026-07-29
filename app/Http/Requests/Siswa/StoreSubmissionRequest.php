@@ -14,7 +14,13 @@ class StoreSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'mimes:pdf,doc,docx,ppt,pptx,zip,jpg,jpeg,png', 'max:10240'],
+            'file' => [
+                'required',
+                'file',
+                'mimes:pdf,doc,docx,ppt,pptx,zip,jpg,jpeg,png',
+                'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,application/x-zip-compressed,image/jpeg,image/png',
+                'max:10240',
+            ],
         ];
     }
 
