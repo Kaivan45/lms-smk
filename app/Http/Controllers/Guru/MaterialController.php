@@ -30,7 +30,7 @@ class MaterialController extends Controller
         $data = $request->validated();
 
         $file = $request->file('file');
-        $path = $file->store('materi', 'public');
+        $path = $file->store('materi', 'local');
 
         Material::create([
             'teaching_assignment_id' => $teachingAssignment->id,
@@ -62,10 +62,10 @@ class MaterialController extends Controller
 
         // File baru bersifat opsional saat edit - kalau tidak diupload, file lama tetap dipakai.
         if ($request->hasFile('file')) {
-            Storage::disk('public')->delete($material->file_path);
+            Storage::disk('local')->delete($material->file_path);
 
             $file = $request->file('file');
-            $data['file_path'] = $file->store('materi', 'public');
+            $data['file_path'] = $file->store('materi', 'local');
             $data['file_type'] = $file->getClientOriginalExtension();
         }
 
@@ -80,7 +80,7 @@ class MaterialController extends Controller
     {
         $this->ensureOwnedByCurrentTeacher($material);
 
-        Storage::disk('public')->delete($material->file_path);
+        Storage::disk('local')->delete($material->file_path);
 
         $teachingAssignmentId = $material->teaching_assignment_id;
         $material->delete();

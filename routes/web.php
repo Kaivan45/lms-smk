@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TeachingAssignmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileDownloadController;
 use App\Http\Controllers\Guru\AssignmentController;
 use App\Http\Controllers\Guru\MaterialController;
 use App\Http\Controllers\Guru\StudentController as GuruStudentController;
@@ -61,7 +62,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/ganti-password', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
     Route::put('/ganti-password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
-    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
+    /*
+    |----------------------------------------------------------------------
+    | Download file terproteksi - materi & jawaban tugas TIDAK bisa diakses
+    | lewat link publik, harus login dan lolos cek otorisasi di controller.
+    |----------------------------------------------------------------------
+    */
+    Route::get('/files/materi/{material}', [FileDownloadController::class, 'material'])->name('files.materi');
+    Route::get('/files/jawaban/{submission}', [FileDownloadController::class, 'submission'])->name('files.jawaban');
+
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {   
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 
         Route::resource('guru', GuruController::class)->except(['show']);

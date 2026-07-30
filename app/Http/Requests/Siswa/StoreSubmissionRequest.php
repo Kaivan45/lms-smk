@@ -19,7 +19,7 @@ class StoreSubmissionRequest extends FormRequest
                 'file',
                 'mimes:pdf,doc,docx,ppt,pptx,zip,jpg,jpeg,png',
                 'mimetypes:application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,application/x-zip-compressed,image/jpeg,image/png',
-                'max:10240',
+                'max:'.config('lms.max_upload_size_kb'),
             ],
         ];
     }
@@ -29,7 +29,7 @@ class StoreSubmissionRequest extends FormRequest
         return [
             'file.required' => 'File jawaban wajib diupload.',
             'file.mimes' => 'File harus berformat PDF, DOC, DOCX, PPT, PPTX, ZIP, JPG, atau PNG.',
-            'file.max' => 'Ukuran file maksimal 10 MB.',
+            'file.max' => 'Ukuran file maksimal '.round(config('lms.max_upload_size_kb') / 1024).' MB.',
         ];
     }
 }

@@ -13,12 +13,6 @@ class DatabaseSeeder extends Seeder
     /**
      * Seeder ini hanya membuat data dasar yang dibutuhkan
      * supaya sistem bisa langsung dipakai/testing:
-     * - 1 akun admin
-     * - 1 tahun ajaran aktif
-     * - beberapa mata pelajaran contoh
-     *
-     * Data guru/siswa/kelas akan ditambahkan lewat menu CRUD Admin
-     * pada tahap pengembangan fitur selanjutnya.
      */
     public function run(): void
     {
