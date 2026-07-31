@@ -57,7 +57,7 @@
                         accept=".pdf,.doc,.docx,.ppt,.pptx"
                         required
                     >
-                    <div class="form-text">Format: PDF, DOC, DOCX, PPT, PPTX. Maksimal 10 MB.</div>
+                    <div class="form-text">Format: PDF, DOC, DOCX, PPT, PPTX. Maksimal {{ round(config('lms.max_upload_size_kb') / 1024) }} MB.</div>
                     @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 

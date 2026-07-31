@@ -3,7 +3,7 @@
 @section('title', 'Mata Pelajaran')
 
 @section('sidebar-menu')
-     @include('layouts.partials.sidebar-menu')
+    @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -50,10 +50,10 @@
                     <tbody>
                         @forelse ($subjects as $index => $item)
                             <tr>
-                                <td>{{ $subjects->firstItem() + $index }}</td>
-                                <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ $item->code }}</span></td>
-                                <td>{{ $item->name }}</td>
-                                <td>
+                                <td data-label="#">{{ $subjects->firstItem() + $index }}</td>
+                                <td data-label="Kode"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ $item->code }}</span></td>
+                                <td data-label="Nama">{{ $item->name }}</td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.mata-pelajaran.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>
@@ -88,34 +88,4 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        document.querySelectorAll('.form-delete').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                Swal.fire({
-                    title: 'Hapus Data?',
-                    text: "Data siswa yang dihapus tidak dapat dikembalikan.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc3545',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-
-            });
-        });
-
-    });
-    </script>
-    @endpush
 @endsection

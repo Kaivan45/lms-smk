@@ -19,6 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Konfirmasi sebelum menghapus data (dipakai di semua halaman CRUD)
+    document.querySelectorAll('.form-delete').forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            var confirmed = confirm('Yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
+            if (!confirmed) {
+                event.preventDefault();
+            }
+        });
+    });
+
     // Toggle show/hide password di halaman login
     var togglePassword = document.getElementById('togglePassword');
     var passwordInput = document.getElementById('password');

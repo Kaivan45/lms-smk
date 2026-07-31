@@ -41,7 +41,7 @@
                     <p class="mb-0 text-muted">{{ $submission->comment }}</p>
                 @endif
                 <hr>
-                <a href="{{ \Illuminate\Support\Facades\Storage::url($submission->file_path) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                <a href="{{ route('files.jawaban', $submission) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
                     <i class="bi bi-file-earmark-arrow-down"></i> Lihat Jawaban yang Dikumpulkan
                 </a>
             </div>
@@ -55,7 +55,7 @@
                 @if ($submission)
                     <p class="text-muted small mb-3">
                         Anda sudah mengumpulkan pada {{ $submission->submitted_at->format('d M Y, H:i') }}.
-                        <a href="{{ \Illuminate\Support\Facades\Storage::url($submission->file_path) }}" target="_blank">Lihat file</a>.
+                        <a href="{{ route('files.jawaban', $submission) }}" target="_blank">Lihat file</a>.
                         Upload file baru di bawah ini untuk menggantinya.
                     </p>
                 @endif

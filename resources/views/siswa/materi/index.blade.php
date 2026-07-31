@@ -27,7 +27,7 @@
                             @endif
                             <div class="text-muted small">{{ $material->created_at->format('d M Y') }}</div>
                         </div>
-                        <a href="{{ \Illuminate\Support\Facades\Storage::url($material->file_path) }}" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap">
+                        <a href="{{ route('files.materi', $material) }}" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap">
                             <i class="bi bi-download"></i> {{ strtoupper($material->file_type) }}
                         </a>
                     </div>

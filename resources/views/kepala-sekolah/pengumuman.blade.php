@@ -13,7 +13,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -25,10 +25,10 @@
                     <tbody>
                         @forelse ($announcements as $index => $item)
                             <tr>
-                                <td>{{ $announcements->firstItem() + $index }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->creator->name ?? '-' }}</td>
-                                <td>{{ $item->created_at->format('d M Y') }}</td>
+                                <td data-label="#">{{ $announcements->firstItem() + $index }}</td>
+                                <td data-label="Judul">{{ $item->title }}</td>
+                                <td data-label="Dibuat oleh">{{ $item->creator->name ?? '-' }}</td>
+                                <td data-label="Tanggal">{{ $item->created_at->format('d M Y') }}</td>
                             </tr>
                         @empty
                             <tr>

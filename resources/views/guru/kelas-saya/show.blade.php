@@ -33,7 +33,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th>Judul</th>
@@ -45,12 +45,12 @@
                     <tbody>
                         @forelse ($teachingAssignment->materials as $material)
                             <tr>
-                                <td>{{ $material->title }}</td>
-                                <td><span class="badge bg-secondary-subtle text-secondary-emphasis text-uppercase">{{ $material->file_type }}</span></td>
-                                <td>{{ $material->created_at->format('d M Y') }}</td>
-                                <td>
+                                <td data-label="Judul">{{ $material->title }}</td>
+                                <td data-label="Tipe"><span class="badge bg-secondary-subtle text-secondary-emphasis text-uppercase">{{ $material->file_type }}</span></td>
+                                <td data-label="Tanggal">{{ $material->created_at->format('d M Y') }}</td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
-                                        <a href="{{ \Illuminate\Support\Facades\Storage::url($material->file_path) }}" target="_blank" class="btn btn-sm btn-outline-secondary" aria-label="Lihat file">
+                                        <a href="{{ route('files.materi', $material) }}" target="_blank" class="btn btn-sm btn-outline-secondary" aria-label="Lihat file">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         <a href="{{ route('guru.materi.edit', $material) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
@@ -88,7 +88,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th>Judul</th>
@@ -100,19 +100,19 @@
                     <tbody>
                         @forelse ($teachingAssignment->assignments as $assignment)
                             <tr>
-                                <td>
+                                <td data-label="Judul">
                                     {{ $assignment->title }}
                                     @if ($assignment->isPastDeadline())
                                         <span class="badge bg-danger-subtle text-danger-emphasis">Lewat Deadline</span>
                                     @endif
                                 </td>
-                                <td>{{ $assignment->deadline->format('d M Y H:i') }}</td>
-                                <td>
+                                <td data-label="Deadline">{{ $assignment->deadline->format('d M Y H:i') }}</td>
+                                <td data-label="Pengumpulan">
                                     <a href="{{ route('guru.tugas.pengumpulan', $assignment) }}">
                                         {{ $assignment->submissions_count }} pengumpulan
                                     </a>
                                 </td>
-                                <td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('guru.tugas.pengumpulan', $assignment) }}" class="btn btn-sm btn-outline-secondary" aria-label="Nilai">
                                             <i class="bi bi-star"></i>

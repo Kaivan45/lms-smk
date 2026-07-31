@@ -13,7 +13,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th>Tugas</th>
@@ -26,17 +26,17 @@
                     <tbody>
                         @forelse ($submissions as $item)
                             <tr>
-                                <td>{{ $item->assignment->title ?? '-' }}</td>
-                                <td>{{ $item->assignment->teachingAssignment->subject->name ?? '-' }}</td>
-                                <td>{{ $item->submitted_at->format('d M Y') }}</td>
-                                <td>
+                                <td data-label="Tugas">{{ $item->assignment->title ?? '-' }}</td>
+                                <td data-label="Mapel">{{ $item->assignment->teachingAssignment->subject->name ?? '-' }}</td>
+                                <td data-label="Dikumpulkan">{{ $item->submitted_at->format('d M Y') }}</td>
+                                <td data-label="Nilai">
                                     @if ($item->isGraded())
                                         <span class="badge bg-success-subtle text-success-emphasis">{{ $item->score }}</span>
                                     @else
                                         <span class="badge bg-secondary-subtle text-secondary-emphasis">Belum dinilai</span>
                                     @endif
                                 </td>
-                                <td class="text-muted small">{{ $item->comment ?? '-' }}</td>
+                                <td data-label="Komentar" class="text-muted small td-block">{{ $item->comment ?? '-' }}</td>
                             </tr>
                         @empty
                             <tr>

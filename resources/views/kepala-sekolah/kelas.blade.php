@@ -13,7 +13,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -26,11 +26,11 @@
                     <tbody>
                         @forelse ($kelas as $index => $item)
                             <tr>
-                                <td>{{ $kelas->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->academicYear->name ?? '-' }}</td>
-                                <td>{{ $item->homeroomTeacher->name ?? '-' }}</td>
-                                <td>{{ $item->students_count }} siswa</td>
+                                <td data-label="#">{{ $kelas->firstItem() + $index }}</td>
+                                <td data-label="Nama Kelas">{{ $item->name }}</td>
+                                <td data-label="Tahun Ajaran">{{ $item->academicYear->name ?? '-' }}</td>
+                                <td data-label="Wali Kelas">{{ $item->homeroomTeacher->name ?? '-' }}</td>
+                                <td data-label="Jumlah Siswa">{{ $item->students_count }} siswa</td>
                             </tr>
                         @empty
                             <tr>

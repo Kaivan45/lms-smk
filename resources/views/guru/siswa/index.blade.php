@@ -33,7 +33,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -46,11 +46,11 @@
                     <tbody>
                         @forelse ($students as $index => $student)
                             <tr>
-                                <td>{{ $students->firstItem() + $index }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->nis_nip ?? '-' }}</td>
-                                <td><span class="badge bg-primary-subtle text-primary-emphasis">{{ $student->schoolClass->name ?? '-' }}</span></td>
-                                <td>{{ $student->email }}</td>
+                                <td data-label="#">{{ $students->firstItem() + $index }}</td>
+                                <td data-label="Nama">{{ $student->name }}</td>
+                                <td data-label="NIS">{{ $student->nis_nip ?? '-' }}</td>
+                                <td data-label="Kelas"><span class="badge bg-primary-subtle text-primary-emphasis">{{ $student->schoolClass->name ?? '-' }}</span></td>
+                                <td data-label="Email">{{ $student->email }}</td>
                             </tr>
                         @empty
                             <tr>

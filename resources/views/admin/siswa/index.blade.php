@@ -51,7 +51,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -65,18 +65,18 @@
                     <tbody>
                         @forelse ($siswa as $index => $item)
                             <tr>
-                                <td>{{ $siswa->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->nis_nip ?? '-' }}</td>
-                                <td>
+                                <td data-label="#">{{ $siswa->firstItem() + $index }}</td>
+                                <td data-label="Nama">{{ $item->name }}</td>
+                                <td data-label="Email">{{ $item->email }}</td>
+                                <td data-label="NIS">{{ $item->nis_nip ?? '-' }}</td>
+                                <td data-label="Kelas">
                                     @if ($item->schoolClass)
                                         <span class="badge bg-primary-subtle text-primary-emphasis">{{ $item->schoolClass->name }}</span>
                                     @else
                                         <span class="text-muted small">Belum ada kelas</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.siswa.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>
@@ -107,35 +107,4 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        document.querySelectorAll('.form-delete').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                Swal.fire({
-                    title: 'Hapus Data?',
-                    text: "Data siswa yang dihapus tidak dapat dikembalikan.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc3545',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-
-            });
-        });
-
-    });
-    </script>
-    @endpush
-
 @endsection

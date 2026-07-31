@@ -13,7 +13,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th>Judul</th>
@@ -27,10 +27,10 @@
                         @forelse ($assignments as $item)
                             @php $submission = $mySubmissions->get($item->id); @endphp
                             <tr>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->teachingAssignment->subject->name ?? '-' }}</td>
-                                <td>{{ $item->deadline->format('d M Y H:i') }}</td>
-                                <td>
+                                <td data-label="Judul">{{ $item->title }}</td>
+                                <td data-label="Mapel">{{ $item->teachingAssignment->subject->name ?? '-' }}</td>
+                                <td data-label="Deadline">{{ $item->deadline->format('d M Y H:i') }}</td>
+                                <td data-label="Status">
                                     @if ($submission && $submission->isGraded())
                                         <span class="badge bg-success-subtle text-success-emphasis">Dinilai: {{ $submission->score }}</span>
                                     @elseif ($submission)
@@ -41,7 +41,7 @@
                                         <span class="badge bg-secondary-subtle text-secondary-emphasis">Belum Kumpul</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="td-action">
                                     <a href="{{ route('siswa.tugas.show', $item) }}" class="btn btn-sm btn-outline-primary">Detail</a>
                                 </td>
                             </tr>

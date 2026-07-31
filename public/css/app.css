@@ -85,6 +85,98 @@ body {
     border-radius: 12px;
 }
 
+/* ===== Card & Tabel Data (dipakai halaman CRUD) ===== */
+.card {
+    border-radius: 10px;
+}
+
+.table thead th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--lms-gray-dark);
+    border-bottom-width: 1px;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* ===== Tabel Responsif Mobile (kartu bertumpuk di layar kecil) ===== */
+@media (max-width: 767.98px) {
+    .table-mobile-cards {
+        border: none;
+    }
+
+    .table-mobile-cards thead {
+        display: none;
+    }
+
+    .table-mobile-cards,
+    .table-mobile-cards tbody,
+    .table-mobile-cards tr,
+    .table-mobile-cards td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-mobile-cards tr {
+        margin-bottom: 0.85rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.65rem 0.85rem;
+        background-color: #ffffff;
+    }
+
+    .table-mobile-cards tr:hover {
+        background-color: #ffffff;
+    }
+
+    .table-mobile-cards td {
+        border: none;
+        padding: 0.4rem 0;
+        text-align: right;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .table-mobile-cards td:not(:last-child) {
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .table-mobile-cards td[data-label]::before {
+        content: attr(data-label);
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: var(--lms-gray-dark);
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .table-mobile-cards td[data-label=""]::before,
+    .table-mobile-cards td:not([data-label])::before {
+        content: none;
+    }
+
+    /* Sel aksi (tombol edit/hapus) tampil rapi tanpa label */
+    .table-mobile-cards td.td-action {
+        justify-content: flex-end;
+    }
+
+    /* Sel berisi input/form (misal form nilai) - label di atas, bukan di samping,
+       supaya input tidak kesempitan */
+    .table-mobile-cards td.td-block {
+        display: block;
+        text-align: left;
+    }
+
+    .table-mobile-cards td.td-block[data-label]::before {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+}
+
 /* ===== Responsif: sidebar jadi off-canvas di layar kecil ===== */
 @media (max-width: 767.98px) {
     .sidebar-lms {

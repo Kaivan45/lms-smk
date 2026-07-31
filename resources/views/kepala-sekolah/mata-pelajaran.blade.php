@@ -13,7 +13,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -24,9 +24,9 @@
                     <tbody>
                         @forelse ($subjects as $index => $item)
                             <tr>
-                                <td>{{ $subjects->firstItem() + $index }}</td>
-                                <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ $item->code }}</span></td>
-                                <td>{{ $item->name }}</td>
+                                <td data-label="#">{{ $subjects->firstItem() + $index }}</td>
+                                <td data-label="Kode"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ $item->code }}</span></td>
+                                <td data-label="Nama">{{ $item->name }}</td>
                             </tr>
                         @empty
                             <tr>

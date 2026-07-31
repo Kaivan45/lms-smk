@@ -3,7 +3,7 @@
 @section('title', 'Kepala Sekolah')
 
 @section('sidebar-menu')
-     @include('layouts.partials.sidebar-menu')
+    @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -51,11 +51,11 @@
                     <tbody>
                         @forelse ($kepalaSekolahList as $index => $item)
                             <tr>
-                                <td>{{ $kepalaSekolahList->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->phone ?? '-' }}</td>
-                                <td>
+                                <td data-label="#">{{ $kepalaSekolahList->firstItem() + $index }}</td>
+                                <td data-label="Nama">{{ $item->name }}</td>
+                                <td data-label="Email">{{ $item->email }}</td>
+                                <td data-label="No. HP">{{ $item->phone ?? '-' }}</td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.kepala-sekolah.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>

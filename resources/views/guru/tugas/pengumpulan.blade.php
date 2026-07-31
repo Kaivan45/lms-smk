@@ -25,7 +25,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table align-middle">
+                <table class="table align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -41,9 +41,9 @@
                         @forelse ($students as $index => $student)
                             @php $submission = $submissions->get($student->id); @endphp
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>
+                                <td data-label="#">{{ $index + 1 }}</td>
+                                <td data-label="Nama">{{ $student->name }}</td>
+                                <td data-label="Status">
                                     @if ($submission)
                                         <span class="badge bg-success-subtle text-success-emphasis">Sudah Kumpul</span>
                                     @else
@@ -51,12 +51,12 @@
                                     @endif
                                 </td>
                                 @if ($submission)
-                                    <td>
-                                        <a href="{{ \Illuminate\Support\Facades\Storage::url($submission->file_path) }}" target="_blank">
+                                    <td data-label="File">
+                                        <a href="{{ route('files.jawaban', $submission) }}" target="_blank">
                                             <i class="bi bi-file-earmark-arrow-down"></i> Lihat File
                                         </a>
                                     </td>
-                                    <td>
+                                    <td data-label="Nilai" class="td-block">
                                         <form action="{{ route('guru.pengumpulan.update', $submission) }}" method="POST" id="grade-form-{{ $submission->id }}">
                                             @csrf
                                             @method('PUT')
@@ -71,7 +71,7 @@
                                             >
                                         </form>
                                     </td>
-                                    <td>
+                                    <td data-label="Komentar" class="td-block">
                                         <input
                                             type="text"
                                             name="comment"
@@ -81,13 +81,13 @@
                                             placeholder="Komentar (opsional)"
                                         >
                                     </td>
-                                    <td>
-                                        <button type="submit" form="grade-form-{{ $submission->id }}" class="btn btn-sm btn-primary">
+                                    <td class="td-action">
+                                        <button type="submit" form="grade-form-{{ $submission->id }}" class="btn btn-sm btn-primary w-100">
                                             Simpan
                                         </button>
                                     </td>
                                 @else
-                                    <td class="text-muted small" colspan="4">Siswa belum upload jawaban.</td>
+                                    <td class="text-muted small td-block" colspan="4">Siswa belum upload jawaban.</td>
                                 @endif
                             </tr>
                         @empty

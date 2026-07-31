@@ -3,7 +3,7 @@
 @section('title', 'Data Kelas')
 
 @section('sidebar-menu')
-     @include('layouts.partials.sidebar-menu')
+    @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -52,17 +52,17 @@
                     <tbody>
                         @forelse ($kelas as $index => $item)
                             <tr>
-                                <td>{{ $kelas->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>
+                                <td data-label="#">{{ $kelas->firstItem() + $index }}</td>
+                                <td data-label="Nama Kelas">{{ $item->name }}</td>
+                                <td data-label="Tahun Ajaran">
                                     {{ $item->academicYear->name ?? '-' }}
                                     @if ($item->academicYear?->is_active)
                                         <span class="badge bg-success-subtle text-success-emphasis">Aktif</span>
                                     @endif
                                 </td>
-                                <td>{{ $item->homeroomTeacher->name ?? '-' }}</td>
-                                <td>{{ $item->students_count }} siswa</td>
-                                <td>
+                                <td data-label="Wali Kelas">{{ $item->homeroomTeacher->name ?? '-' }}</td>
+                                <td data-label="Jumlah Siswa">{{ $item->students_count }} siswa</td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.kelas.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>

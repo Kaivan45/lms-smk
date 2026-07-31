@@ -51,7 +51,7 @@
                 <div class="mb-3">
                     <label for="file" class="form-label">File Materi</label>
                     <div class="mb-2">
-                        <a href="{{ \Illuminate\Support\Facades\Storage::url($material->file_path) }}" target="_blank" class="small">
+                        <a href="{{ route('files.materi', $material) }}" target="_blank" class="small">
                             <i class="bi bi-paperclip"></i> File saat ini ({{ strtoupper($material->file_type) }})
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                         class="form-control @error('file') is-invalid @enderror"
                         accept=".pdf,.doc,.docx,.ppt,.pptx"
                     >
-                    <div class="form-text">Kosongkan jika tidak ingin mengganti file. Maksimal 10 MB.</div>
+                    <div class="form-text">Kosongkan jika tidak ingin mengganti file. Maksimal {{ round(config('lms.max_upload_size_kb') / 1024) }} MB.</div>
                     @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 

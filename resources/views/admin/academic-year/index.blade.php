@@ -3,7 +3,7 @@
 @section('title', 'Tahun Ajaran')
 
 @section('sidebar-menu')
-     @include('layouts.partials.sidebar-menu')
+    @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -33,10 +33,10 @@
                     <tbody>
                         @forelse ($academicYears as $index => $item)
                             <tr>
-                                <td>{{ $academicYears->firstItem() + $index }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->semester }}</td>
-                                <td>
+                                <td data-label="#">{{ $academicYears->firstItem() + $index }}</td>
+                                <td data-label="Tahun Ajaran">{{ $item->name }}</td>
+                                <td data-label="Semester">{{ $item->semester }}</td>
+                                <td data-label="Status">
                                     @if ($item->is_active)
                                         <span class="badge bg-success-subtle text-success-emphasis">
                                             <i class="bi bi-check-circle"></i> Aktif
@@ -45,7 +45,7 @@
                                         <span class="badge bg-secondary-subtle text-secondary-emphasis">Tidak Aktif</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.tahun-ajaran.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>

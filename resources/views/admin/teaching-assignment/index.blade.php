@@ -3,7 +3,7 @@
 @section('title', 'Penugasan Mengajar')
 
 @section('sidebar-menu')
-     @include('layouts.partials.sidebar-menu')
+    @include('layouts.partials.sidebar-menu')
 @endsection
 
 @section('content')
@@ -48,7 +48,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle table-mobile-cards">
                     <thead class="table-light">
                         <tr>
                             <th style="width: 40px;">#</th>
@@ -62,12 +62,12 @@
                     <tbody>
                         @forelse ($teachingAssignments as $index => $item)
                             <tr>
-                                <td>{{ $teachingAssignments->firstItem() + $index }}</td>
-                                <td>{{ $item->teacher->name ?? '-' }}</td>
-                                <td>{{ $item->subject->name ?? '-' }}</td>
-                                <td><span class="badge bg-primary-subtle text-primary-emphasis">{{ $item->schoolClass->name ?? '-' }}</span></td>
-                                <td>{{ $item->academicYear->name ?? '-' }} ({{ $item->academicYear->semester ?? '-' }})</td>
-                                <td>
+                                <td data-label="#">{{ $teachingAssignments->firstItem() + $index }}</td>
+                                <td data-label="Guru">{{ $item->teacher->name ?? '-' }}</td>
+                                <td data-label="Mapel">{{ $item->subject->name ?? '-' }}</td>
+                                <td data-label="Kelas"><span class="badge bg-primary-subtle text-primary-emphasis">{{ $item->schoolClass->name ?? '-' }}</span></td>
+                                <td data-label="Tahun Ajaran">{{ $item->academicYear->name ?? '-' }} ({{ $item->academicYear->semester ?? '-' }})</td>
+                                <td class="td-action">
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('admin.penugasan-mengajar.edit', $item) }}" class="btn btn-sm btn-outline-primary" aria-label="Edit">
                                             <i class="bi bi-pencil"></i>
