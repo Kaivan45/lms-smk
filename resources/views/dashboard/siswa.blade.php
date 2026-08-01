@@ -51,31 +51,69 @@
                 </div>
             @empty
                 <p class="text-muted small mb-0">
-                    Tidak ada tugas dengan deadline di rentang waktu ini. Coba pilih rentang "Semua".
+                    Sudah tidak ada tugas dengan deadline di rentang waktu ini.
                 </p>
             @endforelse
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0"><i class="bi bi-megaphone me-1"></i> Pengumuman Terbaru</h6>
-                <a href="{{ route('siswa.pengumuman.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
-            </div>
+   <div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="mb-0">
+                <i class="bi bi-megaphone-fill text-primary me-2"></i>
+                Pengumuman Terbaru
+            </h6>
 
-            @forelse ($latestAnnouncements as $item)
-                <div class="border-bottom py-2">
-                    <a href="{{ route('siswa.pengumuman.show', $item) }}" class="text-decoration-none text-dark fw-medium">
-                        {{ $item->title }}
-                    </a>
-                    <div class="text-muted small">{{ $item->created_at->diffForHumans() }}</div>
-                </div>
-            @empty
-                <p class="text-muted small mb-0">Belum ada pengumuman.</p>
-            @endforelse
+            <a href="{{ route('siswa.pengumuman.index') }}"
+               class="btn btn-sm btn-outline-primary rounded-pill">
+                Lihat Semua
+            </a>
         </div>
+
+        @forelse ($latestAnnouncements as $item)
+            <a href="{{ route('siswa.pengumuman.show', $item) }}"
+               class="text-decoration-none announcement-link"  data-id="{{ $item->id }}">
+
+                <div class="d-flex align-items-start p-3 mb-2 rounded-3 announcement-item">
+
+                    <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                             style="width:48px;height:48px;">
+                            <i class="bi bi-megaphone-fill text-primary"></i>
+                        </div>
+                    </div>
+
+                    <div class="ms-3 flex-grow-1">
+                        <h6 class="mb-1 text-dark">
+                            {{ $item->title }}
+                        </h6>
+
+                        <small class="text-muted">
+                            <i class="bi bi-clock me-1"></i>
+                            {{ $item->created_at->diffForHumans() }}
+                        </small>
+                    </div>
+
+                    <div class="ms-2">
+                        <span class="badge bg-primary-subtle text-primary badge-baru"
+                            data-id="{{ $item->id }}">
+                            Baru
+                        </span>
+                    </div>
+
+                </div>
+            </a>
+        @empty
+            <div class="text-center py-4">
+                <i class="bi bi-megaphone display-5 text-muted"></i>
+                <p class="text-muted mt-2 mb-0">
+                    Belum ada pengumuman.
+                </p>
+            </div>
+        @endforelse
     </div>
+</div>
 
     <div class="row g-3 mt-1">
         <div class="col-6 col-md-3">
@@ -119,4 +157,43 @@
             </a>
         </div>
     </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Ambil daftar pengumuman yang sudah dibaca
+            let readAnnouncements = JSON.parse(localStorage.getItem("readAnnouncements")) || [];
+
+            // Sembunyikan badge jika sudah dibaca
+            document.querySelectorAll(".badge-baru").forEach(function (badge) {
+                let id = badge.dataset.id;
+
+                if (readAnnouncements.includes(id)) {
+                    badge.remove();
+                }
+            });
+
+            // Saat link diklik
+            document.querySelectorAll(".announcement-link").forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    let id = this.dataset.id;
+
+                    if (!readAnnouncements.includes(id)) {
+                        readAnnouncements.push(id);
+                        localStorage.setItem(
+                            "readAnnouncements",
+                            JSON.stringify(readAnnouncements)
+                        );
+                    }
+
+                });
+
+            });
+
+        });
+        </script>
 @endsection
