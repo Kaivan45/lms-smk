@@ -14,7 +14,7 @@ class GradeController extends Controller
         $submissions = Submission::where('student_id', Auth::id())
             ->with('assignment.teachingAssignment.subject')
             ->latest('submitted_at')
-            ->paginate(10);
+            ->simplepaginate(10);
 
         return view('siswa.nilai.index', compact('submissions'));
     }

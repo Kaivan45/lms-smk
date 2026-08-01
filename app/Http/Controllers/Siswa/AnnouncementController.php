@@ -13,7 +13,7 @@ class AnnouncementController extends Controller
         $announcements = Announcement::query()
             ->with('creator')
             ->latest()
-            ->paginate(10);
+            ->simplepaginate(10);
 
         return view('siswa.pengumuman.index', compact('announcements'));
     }

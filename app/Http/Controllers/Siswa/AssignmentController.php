@@ -20,7 +20,7 @@ class AssignmentController extends Controller
         $assignments = Assignment::whereHas('teachingAssignment', fn ($query) => $query->where('class_id', $classId))
             ->with(['teachingAssignment.subject'])
             ->latest()
-            ->paginate(10);
+            ->simplepaginate(10);
 
         $mySubmissions = Submission::where('student_id', Auth::id())
             ->whereIn('assignment_id', $assignments->pluck('id'))

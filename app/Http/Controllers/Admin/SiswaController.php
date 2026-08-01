@@ -35,7 +35,7 @@ class SiswaController extends Controller
             })
             ->when($classId, fn ($query) => $query->where('class_id', $classId))
             ->orderBy('name')
-            ->paginate(10)
+            ->simplepaginate(10)
             ->withQueryString();
 
         $classes = ClassRoom::orderBy('name')->get();

@@ -19,7 +19,7 @@ class TeachingAssignmentController extends Controller
             ->with(['schoolClass', 'subject', 'academicYear'])
             ->withCount(['materials', 'assignments'])
             ->latest()
-            ->paginate(10);
+            ->simplepaginate(10);
 
         return view('guru.kelas-saya.index', compact('teachingAssignments'));
     }

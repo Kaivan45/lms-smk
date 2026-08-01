@@ -33,7 +33,7 @@ class StudentController extends Controller
             ->with('schoolClass')
             ->when($classId, fn ($query) => $query->where('class_id', $classId))
             ->orderBy('name')
-            ->paginate(15)
+            ->simplepaginate(15)
             ->withQueryString();
 
         return view('guru.siswa.index', compact('students', 'myClasses', 'classId'));
