@@ -59,26 +59,11 @@
                                 @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
-                            @if($user->role !== 'admin')
                             <div class="col-md-6">
-                                <label class="form-label">
-                                    {{ $user->role === 'siswa' ? 'NIS' : 'NIP' }}
-                                </label>
-
-                                <input
-                                    type="text"
-                                    value="{{ $user->nis_nip ?? '-' }}"
-                                    class="form-control"
-                                    disabled
-                                >
-
-                                <div class="form-text">
-                                    {{ $user->role === 'siswa'
-                                        ? 'NIS hanya bisa diubah oleh Admin.'
-                                        : 'NIP hanya bisa diubah oleh Admin.' }}
-                                </div>
+                                <label class="form-label">NIS/NIP</label>
+                                <input type="text" value="{{ $user->nis_nip ?? '-' }}" class="form-control" disabled>
+                                <div class="form-text">NIS/NIP hanya bisa diubah oleh Admin.</div>
                             </div>
-                            @endif
 
                             <div class="col-12">
                                 <label for="address" class="form-label">Alamat</label>

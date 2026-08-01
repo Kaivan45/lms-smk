@@ -24,7 +24,7 @@ class SubjectController extends Controller
                 });
             })
             ->orderBy('name')
-            ->simplepaginate(10)
+            ->paginate(10)
             ->withQueryString();
 
         return view('admin.subject.index', compact('subjects', 'search'));

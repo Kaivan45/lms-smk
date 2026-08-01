@@ -19,9 +19,7 @@ class Submission extends Model
         'submitted_at',
     ];
 
-    protected $casts = [
-        'submitted_at' => 'datetime',
-    ];
+    protected $casts = ['submitted_at' => 'datetime'];
 
     public function assignment(): BelongsTo
     {
@@ -36,5 +34,14 @@ class Submission extends Model
     public function isGraded(): bool
     {
         return ! is_null($this->score);
+    }
+
+    /**
+     * Terlambat = waktu submit lebih lambat dari deadline tugasnya.
+     * Butuh relasi 'assignment' sudah di-load sebelumnya.
+     */
+    public function isLate(): bool
+    {
+        return $this->submitted_at->greaterThan($this->assignment->deadline);
     }
 }

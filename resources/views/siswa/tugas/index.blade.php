@@ -33,8 +33,16 @@
                                 <td data-label="Status">
                                     @if ($submission && $submission->isGraded())
                                         <span class="badge bg-success-subtle text-success-emphasis">Dinilai: {{ $submission->score }}</span>
+                                        @if ($submission->isLate())
+                                            <span class="badge bg-danger-subtle text-danger-emphasis">Terlambat</span>
+                                        @endif
                                     @elseif ($submission)
                                         <span class="badge bg-primary-subtle text-primary-emphasis">Sudah Kumpul</span>
+                                        @if ($submission->isLate())
+                                            <span class="badge bg-danger-subtle text-danger-emphasis">Terlambat</span>
+                                        @endif
+                                    @elseif ($item->isPastDeadline() && ! $item->allow_late_submission)
+                                        <span class="badge bg-secondary-subtle text-secondary-emphasis">Ditutup - Tidak Mengumpulkan</span>
                                     @elseif ($item->isPastDeadline())
                                         <span class="badge bg-danger-subtle text-danger-emphasis">Lewat Deadline</span>
                                     @else

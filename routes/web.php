@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/files/materi/{material}', [FileDownloadController::class, 'material'])->name('files.materi');
     Route::get('/files/jawaban/{submission}', [FileDownloadController::class, 'submission'])->name('files.jawaban');
 
-    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {   
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 
         Route::resource('guru', GuruController::class)->except(['show']);

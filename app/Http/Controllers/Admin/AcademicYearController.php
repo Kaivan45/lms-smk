@@ -15,7 +15,7 @@ class AcademicYearController extends Controller
     {
         $academicYears = AcademicYear::orderByDesc('name')
             ->orderByDesc('semester')
-            ->simplepaginate(10);
+            ->paginate(10);
 
         return view('admin.academic-year.index', compact('academicYears'));
     }

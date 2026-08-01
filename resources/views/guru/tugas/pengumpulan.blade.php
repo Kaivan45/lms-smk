@@ -18,6 +18,11 @@
             Deadline: {{ $assignment->deadline->format('d M Y, H:i') }}
             @if ($assignment->isPastDeadline())
                 <span class="badge bg-danger-subtle text-danger-emphasis">Sudah Lewat Deadline</span>
+                @if ($assignment->allow_late_submission)
+                    <span class="badge bg-warning-subtle text-warning-emphasis">Pengumpulan Terlambat Diizinkan</span>
+                @else
+                    <span class="badge bg-secondary-subtle text-secondary-emphasis">Pengumpulan Ditutup</span>
+                @endif
             @endif
         </p>
     </div>
@@ -46,6 +51,9 @@
                                 <td data-label="Status">
                                     @if ($submission)
                                         <span class="badge bg-success-subtle text-success-emphasis">Sudah Kumpul</span>
+                                        @if ($submission->isLate())
+                                            <span class="badge bg-danger-subtle text-danger-emphasis">Terlambat</span>
+                                        @endif
                                     @else
                                         <span class="badge bg-secondary-subtle text-secondary-emphasis">Belum Kumpul</span>
                                     @endif

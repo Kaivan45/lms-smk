@@ -29,6 +29,7 @@ class AssignmentController extends Controller
         Assignment::create([
             'teaching_assignment_id' => $teachingAssignment->id,
             ...$request->validated(),
+            'allow_late_submission' => $request->boolean('allow_late_submission'),
         ]);
 
         return redirect()
@@ -49,7 +50,10 @@ class AssignmentController extends Controller
     {
         $this->ensureOwnedByCurrentTeacher($assignment);
 
-        $assignment->update($request->validated());
+        $data = $request->validated();
+        $data['allow_late_submission'] = $request->boolean('allow_late_submission');
+
+        $assignment->update($data);
 
         return redirect()
             ->route('guru.kelas-saya.show', $assignment->teaching_assignment_id)

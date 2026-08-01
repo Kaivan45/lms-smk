@@ -17,6 +17,7 @@ class UpdateAssignmentRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'deadline' => ['required', 'date'],
+            'allow_late_submission' => ['nullable', 'boolean'],
         ];
     }
 

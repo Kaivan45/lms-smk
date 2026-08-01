@@ -31,7 +31,7 @@ class GuruController extends Controller
                 });
             })
             ->orderBy('name')
-            ->simplepaginate(10)
+            ->paginate(10)
             ->withQueryString();
 
         return view('admin.guru.index', compact('guru', 'search'));

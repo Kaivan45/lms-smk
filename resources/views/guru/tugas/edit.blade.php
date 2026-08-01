@@ -61,6 +61,23 @@
                     @error('deadline')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
+                <div class="mb-3 form-check">
+                    <input
+                        type="checkbox"
+                        id="allow_late_submission"
+                        name="allow_late_submission"
+                        value="1"
+                        class="form-check-input"
+                        {{ old('allow_late_submission', $assignment->allow_late_submission) ? 'checked' : '' }}
+                    >
+                    <label for="allow_late_submission" class="form-check-label">
+                        Izinkan siswa mengumpulkan setelah deadline (terlambat)
+                    </label>
+                    <div class="form-text">
+                        Kalau dicentang, siswa masih bisa upload jawaban walau sudah lewat deadline (akan ditandai "Terlambat"). Kalau tidak dicentang, upload otomatis ditutup begitu deadline lewat.
+                    </div>
+                </div>
+
                 <div class="d-flex gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-check-lg me-1"></i> Simpan

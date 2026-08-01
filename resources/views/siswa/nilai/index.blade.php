@@ -28,7 +28,12 @@
                             <tr>
                                 <td data-label="Tugas">{{ $item->assignment->title ?? '-' }}</td>
                                 <td data-label="Mapel">{{ $item->assignment->teachingAssignment->subject->name ?? '-' }}</td>
-                                <td data-label="Dikumpulkan">{{ $item->submitted_at->format('d M Y') }}</td>
+                                <td data-label="Dikumpulkan">
+                                    {{ $item->submitted_at->format('d M Y') }}
+                                    @if ($item->isLate())
+                                        <span class="badge bg-danger-subtle text-danger-emphasis">Terlambat</span>
+                                    @endif
+                                </td>
                                 <td data-label="Nilai">
                                     @if ($item->isGraded())
                                         <span class="badge bg-success-subtle text-success-emphasis">{{ $item->score }}</span>

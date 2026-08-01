@@ -17,6 +17,7 @@ class StoreAssignmentRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'deadline' => ['required', 'date', 'after:now'],
+            'allow_late_submission' => ['nullable', 'boolean'],
         ];
     }
 

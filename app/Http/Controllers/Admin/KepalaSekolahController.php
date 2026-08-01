@@ -26,7 +26,7 @@ class KepalaSekolahController extends Controller
                 });
             })
             ->orderBy('name')
-            ->simplepaginate(10)
+            ->paginate(10)
             ->withQueryString();
 
         return view('admin.kepala-sekolah.index', [

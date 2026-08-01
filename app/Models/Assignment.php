@@ -17,10 +17,12 @@ class Assignment extends Model
         'description',
         'file_path',
         'deadline',
+        'allow_late_submission',
     ];
 
     protected $casts = [
         'deadline' => 'datetime',
+        'allow_late_submission' => 'boolean',
     ];
 
     public function teachingAssignment(): BelongsTo

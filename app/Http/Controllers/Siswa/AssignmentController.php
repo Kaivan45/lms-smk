@@ -13,10 +13,6 @@ use Illuminate\View\View;
 
 class AssignmentController extends Controller
 {
-    /**
-     * Daftar semua tugas dari mapel-mapel di kelas siswa, lengkap status
-     * pengumpulannya (belum kumpul / sudah kumpul / sudah dinilai).
-     */
     public function index(): View
     {
         $classId = Auth::user()->class_id;
@@ -29,6 +25,10 @@ class AssignmentController extends Controller
         $mySubmissions = Submission::where('student_id', Auth::id())
             ->whereIn('assignment_id', $assignments->pluck('id'))
             ->get()
+            ->each(fn ($submission) => $submission->setRelation(
+                'assignment',
+                $assignments->firstWhere('id', $submission->assignment_id)
+            ))
             ->keyBy('assignment_id');
 
         return view('siswa.tugas.index', compact('assignments', 'mySubmissions'));
@@ -51,20 +51,26 @@ class AssignmentController extends Controller
     {
         $this->ensureBelongsToStudentClass($assignment);
 
+        // INI KUNCINYA: dicek di awal, SEBELUM tahu ada submission lama atau
+        // tidak - jadi walau siswa sudah pernah kumpul tepat waktu, begitu
+        // deadline lewat dan guru tidak izinkan terlambat, edit tetap diblokir.
+        if ($assignment->isPastDeadline() && ! $assignment->allow_late_submission) {
+            return back()->with('error', 'Tugas ini sudah melewati deadline dan guru tidak mengizinkan pengumpulan terlambat.');
+        }
+
         $existing = Submission::where('assignment_id', $assignment->id)
             ->where('student_id', Auth::id())
             ->first();
 
-        // Kalau sudah pernah dinilai, jawaban tidak boleh diubah lagi.
         if ($existing && $existing->isGraded()) {
             return back()->with('error', 'Tugas ini sudah dinilai, jawaban tidak bisa diubah lagi.');
         }
 
         $file = $request->file('file');
-        $path = $file->store('jawaban-tugas', 'public');
+        $path = $file->store('jawaban-tugas', 'local');
 
         if ($existing) {
-            Storage::disk('public')->delete($existing->file_path);
+            Storage::disk('local')->delete($existing->file_path);
             $existing->update(['file_path' => $path, 'submitted_at' => now()]);
         } else {
             Submission::create([
@@ -80,10 +86,6 @@ class AssignmentController extends Controller
             ->with('success', 'Jawaban berhasil dikumpulkan.');
     }
 
-    /**
-     * Guard: tugas ini harus memang untuk kelas siswa yang login,
-     * supaya siswa tidak bisa akses/upload ke tugas kelas lain lewat URL.
-     */
     private function ensureBelongsToStudentClass(Assignment $assignment): void
     {
         $assignment->loadMissing('teachingAssignment');

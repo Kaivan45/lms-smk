@@ -27,6 +27,7 @@ class SubmissionController extends Controller
 
         $submissions = Submission::where('assignment_id', $assignment->id)
             ->get()
+            ->each(fn ($submission) => $submission->setRelation('assignment', $assignment))
             ->keyBy('student_id');
 
         return view('guru.tugas.pengumpulan', compact('assignment', 'students', 'submissions'));

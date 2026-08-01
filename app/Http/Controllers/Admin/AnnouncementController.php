@@ -21,7 +21,7 @@ class AnnouncementController extends Controller
             ->with('creator')
             ->when($search, fn ($query) => $query->where('title', 'like', "%{$search}%"))
             ->latest()
-            ->simplepaginate(10)
+            ->paginate(10)
             ->withQueryString();
 
         return view('admin.announcement.index', compact('announcements', 'search'));
