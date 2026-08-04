@@ -33,7 +33,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/', fn () => redirect()->route('login'));
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])
-        ->middleware('throttle:5,1')
+        ->middleware('throttle:4,1')
         ->name('login.attempt');
 });
 
